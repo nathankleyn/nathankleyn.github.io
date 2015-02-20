@@ -1,0 +1,20 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+relative_permalinks: true
+
+# Setup
+title:            'Nathan Kleyn'
+tagline:          'The musings of a programming fanatic'
+description:      'Ruby, Haskell, Rust, and JS tinkerer. Find me on Twitter as <a href="https://twitter.com/nathankleyn" target="_blank">@nathankleyn</a>.'
+url:              http://nathankleyn.com
+baseurl:          /
+
+author:
+  name:           'Mark Otto'
+  url:            https://twitter.com/mdo
+
+paginate:         5

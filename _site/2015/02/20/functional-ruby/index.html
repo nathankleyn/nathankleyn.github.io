@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Making Use Of The Lazy Enumerator In Ruby &middot; Nathan Kleyn
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax-solarized-light.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          Nathan Kleyn
+        </a>
+      </h1>
+      <p class="lead">Ruby, Haskell, Rust, and JS tinkerer. Find me on Twitter as <a href="https://twitter.com/nathankleyn" target="_blank">@nathankleyn</a>.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Home</a>
+
+      
+
+      
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/about/">About</a>
+          
+        
+      
+        
+      
+        
+          
+        
+      
+
+      <a class="sidebar-nav-item" href="https://github.com/nathankleyn">GitHub</a>
+    </nav>
+
+    <p>&copy; 2015. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Making Use Of The Lazy Enumerator In Ruby</h1>
+  <span class="post-date">20 Feb 2015</span>
+  <p>Recently, I&#39;ve found myself starting to use the new Ruby 2.0 Lazy Enumerator feature quite a bit. I&#39;ve <a href="http://www.sitepoint.com/functional-programming-techniques-with-ruby-part-iii/">written about the lazy enumerator feature in the past</a>, but never found much time to use it what with backwards incompatibilities and all.</p>
+
+<p>I&#39;m finding there are two main circumstances in which you&#39;ll want to use this feature if your use case allows Ruby 2.0+:</p>
+
+<ul>
+<li>Speeding up code where multiple iterations of the dataset is unavoidable with strict enumerations. This is the obvious &quot;poster-child&quot; use case for this feature.</li>
+<li>Cleaning up code that does a lot in a single iteration. This is somewhat surprising to me, as I always thought up until this point that Ruby&#39;s enumerator syntax was as good as it could get compared to most other languages.</li>
+</ul>
+
+<h2>Speeding up multiple iterations</h2>
+
+<p>In versions of Ruby without the lazy enumerator, sometimes you had to suffer the penalty of multiple iterations because you needed to use multiple enumerator methods:</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">do_some_stuff</span>
+  <span class="n">some_stuff</span>
+    <span class="o">.</span><span class="n">flat_map</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">do_something</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">sort_by</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:something</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reverse</span>
+    <span class="o">.</span><span class="n">uniq</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:something_else</span><span class="p">)</span>
+<span class="k">end</span></code></pre></div>
+
+<p>With a two line sprinkle, you can dramatically change the performance characteristics of this code:</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">do_some_stuff</span>
+  <span class="n">some_stuff</span>
+    <span class="o">.</span><span class="n">lazy</span>
+    <span class="o">.</span><span class="n">flat_map</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">do_something</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">sort_by</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:something</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reverse</span>
+    <span class="o">.</span><span class="n">uniq</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:something_else</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">to_a</span>
+<span class="k">end</span></code></pre></div>
+
+<p>Now you&#39;ll only suffer a single iteration of <code>some_stuff</code>, which can add up to a massive saving if that enumerable object ever gets large!</p>
+
+<h2>Cleaning up code large enumeration blocks</h2>
+
+<p>Sometimes I want to refactor code that does a lot in a single loop into something that reads better. Take for example this (extremely contrived) sample code:</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">xs</span><span class="o">.</span><span class="n">select</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">}</span></code></pre></div>
+
+<p>Often one can end up with this pretty gross method nesting just because you want to avoid the cost of iterating. This code is likely but a small taste of the size of some blocks out there, and it can make code hard to read when you try to shove too much in a single block.</p>
+
+<p>Enter the lazy enumerator:</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">xs</span><span class="o">.</span><span class="n">lazy</span>
+  <span class="o">.</span><span class="n">select</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">}</span> <span class="c1"># Nums divisible by 4</span>
+  <span class="o">.</span><span class="n">select</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">}</span> <span class="c1"># Nums also divisble by 3</span>
+  <span class="o">.</span><span class="n">select</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">}</span> <span class="c1"># Nums less than 5 digits long</span>
+  <span class="o">.</span><span class="n">to_a</span></code></pre></div>
+
+<p>This gives you an opportunity to refactor your code to do a single thing per line and do it tersely. You also have the ability to be able to comment each line as you need, leading to cleaner, more readable code.</p>
+
+<h2>Learnings</h2>
+
+<p>In any code where you can use Ruby 2.0+, consider using the lazy enumerable for these use cases. You may find it leads to cleaner, more readable code - and it some cases a hefty performance gain!</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+  </ul>
+</div>
+
+    </div>
+
+  </body>
+</html>
