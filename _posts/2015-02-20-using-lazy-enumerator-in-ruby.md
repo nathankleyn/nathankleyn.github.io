@@ -7,8 +7,8 @@ Recently, I've found myself starting to use the new Ruby 2.0 Lazy Enumerator fea
 
 I'm finding there are two main circumstances in which I'm using this feature:
 
-* Speeding up code where multiple iterations of the dataset is unavoidable with strict enumerations. This is the obvious "poster-child" use case for this feature.
-* Cleaning up code that does a lot in a single iteration. This is somewhat surprising to me, as I always thought up until this point that Ruby's enumerator syntax was as good as it could get compared to most other languages.
+* **Speeding up code where multiple iterations of the dataset is unavoidable with strict enumerations.** This is the obvious "poster-child" use case for this feature.
+* **Cleaning up code that does a lot in a single iteration.** This is somewhat surprising to me, as I always thought up until this point that Ruby's enumerator syntax was as good as it could get compared to most other languages.
 
 ## Speeding up multiple iterations
 
