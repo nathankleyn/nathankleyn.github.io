@@ -3,7 +3,7 @@ layout: post
 title: Using The Lazy Enumerator In Ruby
 ---
 
-Recently, I've found myself starting to use the new Ruby 2.0 Lazy Enumerator feature quite a bit. I'd [written about the lazy enumerator feature in the past](http://www.sitepoint.com/functional-programming-techniques-with-ruby-part-iii/), but had previously never found much time to use it, what with backwards incompatibilities and all.
+Recently, I've found myself starting to use the new Ruby 2.0 lazy enumerator feature quite a bit. I'd [written about the lazy enumerator feature in the past](http://www.sitepoint.com/functional-programming-techniques-with-ruby-part-iii/), but had previously never found much time to use it, what with backwards incompatibilities and all making it difficult to use this in production code.
 
 I'm finding there are two main circumstances in which I'm using this feature:
 
@@ -48,14 +48,14 @@ Sometimes I want to refactor code that does a lot in a single loop into somethin
 xs.select { |x| x % 3 == 0 && x % 4 == 0 && x.to_s.size < 5 }
 {% endhighlight %}
 
-Often one can end up with this pretty gross method nesting just because you want to avoid the cost of iterating. This code is likely but a small taste of the size of some blocks out there, and it can make code hard to read when you try to shove too much in a single block.
+Often one can end up with this pretty gross code where you've shoved everything in a single block just because you want to avoid the cost of iterating. This code is likely but a small taste of the size of some blocks out there, and it can make code hard to read when you try to shove too much in a single block.
 
 Enter the lazy enumerator:
 
 {% highlight ruby %}
 xs.lazy
   .select { |x| x % 3 == 0 } # Nums divisible by 4
-  .select { |x| x % 4 == 0 } # Nums also divisble by 3
+  .select { |x| x % 4 == 0 } # Nums also divisible by 3
   .select { |x| x.to_s.size < 5 } # Nums less than 5 digits long
   .to_a
 {% endhighlight %}
