@@ -3,7 +3,7 @@ layout: post
 title: Distributed ID Generation
 ---
 
-I presented a talk on distributed ID generation using Redis Lua scripting! The [slides are available on Speaker Deck](https://speakerdeck.com/nathankleyn/distributed-id-generation) and we're planning on open-sourcing our implementation from Intent HQ soon!
+I presented a talk on distributed ID generation using Redis Lua scripting as we do at [Intent HQ](https://www.intenthq.com/)! The [slides are available on Speaker Deck](https://speakerdeck.com/nathankleyn/distributed-id-generation) and we're planning on open-sourcing our implementation from Intent HQ soon!
 
 In the meantime, you might find this useful as a guide on the theory and ideas behind generating unique IDs in a distributed fashion.
 
