@@ -18,3 +18,7 @@ author:
   url: https://twitter.com/mdo
 
 paginate: 5
+
+sass:
+  sass_dir: css/_sass
+  style: compressed
