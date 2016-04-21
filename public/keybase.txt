@@ -1,0 +1,80 @@
+==================================================================
+https://keybase.io/nathankleyn
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://nathankleyn.com
+  * I am nathankleyn (https://keybase.io/nathankleyn) on keybase.
+  * I have a public key with fingerprint EB7C A542 5921 6E8A B45A  281D CB15 F387 A456 9943
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "0101e256e703ab3c46df09e693c77549f8db16e199b6e1495cd4c85b0eac34424bd50a",
+            "fingerprint": "eb7ca54259216e8ab45a281dcb15f387a4569943",
+            "host": "keybase.io",
+            "key_id": "cb15f387a4569943",
+            "kid": "0101e256e703ab3c46df09e693c77549f8db16e199b6e1495cd4c85b0eac34424bd50a",
+            "uid": "c3bcef2e4b92fe223d7abd775d6b4e00",
+            "username": "nathankleyn"
+        },
+        "revoke": {
+            "sig_ids": [
+                "2d9d90a0d49c66242ddeaea16e2e916551642ae8b0b0811f0adc0a5a9f4637860f"
+            ]
+        },
+        "service": {
+            "hostname": "nathankleyn.com",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1461226672,
+    "expire_in": 157680000,
+    "prev": "45d6eef2aacfe2dbe04d466f40d950fde729951c9f72bb20799b1540451120f3",
+    "seqno": 11,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.53
+Comment: https://keybase.io/crypto
+
+yMOGAnicrZJtUFRVGMeXtxUJV1EjtniRCxKTDHPu3XPv3busDFgZMLw4FWOmuNyX
+c3cvC7vb7gK7ITI5jB/E4iUImhRLzVCWgjRyhDCs6I0wwHEodWqSEVIhKiYnQ+gs
+1af62P1w75x7/s/v+Z//cz5eFaQKC4Dnm7f2zNe8H/Dl4N1y1faog91VhGCXvISh
+irCi5Q8qlZDLbbIqEmEgAAlIRNEMYoGOF3QiZCQZcIjhdCLL0pCT9ZJAMojkOAG/
+IUeLEhT1tAAQL+ogpKAg0YAnUghZsZmR0+FUbG6MRQIr8jSkaI7C1XpegDRP6UlJ
+FEha1ulZHtIMx0EdLrTYXf4KbE7gXShVseN/eGFatvcf+v/Zd/lffXSCiGQKQYGj
+ZERROonlBQmTJEaACAC/0IWcNr4MYbWNd1t4m7UUeW1EdQrhRBV2K/JH61LM2LeL
+MOwkKImTOMADCXIiw1CQkiTEIx57ohBHMjRNMpDikV4AAtCTpAx4SQQ8zXMyZHSs
+ngEyUYTZuGmFIi7D/UH920CqaC/D7hxOu9su2kvxpsXtdrgMfmNur8OvrkSC6W+O
+SVBsEp4UrqhATpditxEGEitFt+IHk5AhKYphWCqFQB6H4kQmxa+gWUYP8OPvgyow
+EuJgEA6M50UclyQgACXIMDIEEkcDWUIsxXE0KXIySwkCBVg8B5KGANIkSQHZP0cX
+es5mx2wS++TNmInDw+cqdyKi+sLgrmBVQJhKHRLov8KqsJVr/rnYCWCN6uSKzuFL
+5+pDBoaZxnuZUym5iVvCG05FHnspOT5fM5qVEpoWOzQ4SwTF+fbd1jTycGxmjjQY
+D2yLvVo51GVujqndmuAxx3Qab9fN+5o6099p+PZC75L+5tH8xR+aYt5Qn/umOA9V
+RSQ08NrzExdftceWfNAZEDY+17Hl4sqlKavWvLTN3fxTTlHTK7r9vZq8t71Prxoe
+fT4tstrheZS+/FvN3U1Z7SVfFETvzftFM6nN+O7+t54qS558eTHb83sxa6zJ3ZG+
+YaGq7BgquL7R8uvu9dwNhhaPFBqeGNv+4kL9jPZwXUhPTGjzzv6C8A/PftJ6n3E6
+vOvkaMRHxfEZn6f6/li81jL4QkaxOumRgbPtJ+rjXjfNVzw8casv0GfZtDrWajc+
+9K5lskM8c+h0pqelqHdQ+1hOXbR1TM05x4/OXh1fh/R3dvjK2/d8ViMWVrd5cu5M
+XxqoRW3TwT7Vs6kPfO1tO3M5Ljt+S9T+K8mp1qiS9/atTdeeun7iytSbrTdHcoiA
+ez93LwVqflxtDoqsTLz2aRDx2p7cQpdWE6FsrlPP93VkBp9eb7TRj2/OaLS6uvtA
+V1LGutmD6Ih7KOv4LqkhSZ1GbXyG3rAUmj4iNecfjuzzJu4u7clfq957vKLc0Hpo
+pOdWXm3TxA0C9Ud8P/rkV5H9DQcW5lYM5E2MZrdEO+WZiQf/BBnG0fI=
+=V5Ff
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/nathankleyn
+
+==================================================================
