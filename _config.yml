@@ -12,10 +12,11 @@ tagline: 'The musings of a programming fanatic'
 description: 'Ruby, Haskell, Rust, and JS tinkerer. Find me on Twitter as <a href="https://twitter.com/nathankleyn" target="_blank">@nathankleyn</a>.'
 url: http://nathankleyn.com
 baseurl: /
+include: ['.well-known']
 
 author:
-  name: 'Mark Otto'
-  url: https://twitter.com/mdo
+  name: 'Nathan Kleyn'
+  url: https://twitter.com/nathankleyn
 
 paginate: 5
 
