@@ -37,10 +37,10 @@ data.value // => Array[Int] = Array(1, 2, 3))
 
 When working with Spark, it can be easy to end up with one "god job" where the implementation of all the steps of a job are inlined and heavily dependent on Spark features.
 
-With some effort, we can factor out our pure functions into smaller classes which we can call into, but we hit a snag:
+With some effort, we can factor out our pure functions into smaller classes which we can call into:
 
 ```scala
-class PostcodeToLatLong(postcodeTable: Map[String, (Double, Double)]) {
+class PostcodeToLatLong(lookup: Map[String, (Double, Double)]) {
   def lookupPostcode(postcode: String): (Double, Double) = ???
 }
 ```
@@ -50,14 +50,14 @@ Here we have a simple class which needs a lookup table to function: in this case
 If this class was going to be used in a Spark job, we may consider making the `postcodeTable` a broadcast variable so that only the nodes that need it will request the data for it. However, we hit a snag: we can't do this without leaking the `Brodcast` wrapper type into the implementation details of the class like so:
 
 ```scala
-class PostcodeToLatLong(postcodeTable: Broadcast[Map[String, (Double, Double)]]) {
+class PostcodeToLatLong(lookup: Broadcast[Map[String, (Double, Double)]]) {
   // ...
 }
 ```
 
 This is a nightmare for testing, as now we've gone from having a simple, pure class which can be unit tested easily to having a class that depends entirely on Spark implementation details and needs a `SparkContext` just to setup!
 
-## Abstracting away the braodcast functionality
+## Abstracting away the broadcast functionality
 
 Thankfully, we can solve this using a trait that abstracts what we actually care about: that the thing we have passed is lazy and will only be grabbed when we call `.value` on it!
 
@@ -70,7 +70,7 @@ trait Lazy[T] extends Serializable {
 And now we can change our class to take this trait instead:
 
 ```scala
-class PostcodeToLatLong(postcodeTable: Lazy[Map[String, (Double, Double)]]) {
+class PostcodeToLatLong(lookup: Lazy[Map[String, (Double, Double)]]) {
   // ...
 }
 ```
@@ -96,12 +96,12 @@ And now we can put the pieces together:
 ```scala
 import Lazy.implicits._
 
-val postcodeData = Map("foo" -> (123.45, 123.45))
-val bcPostcodeData = sparkContext.broadcast(postcodeData)
+val lookup = Map("foo" -> (123.45, 123.45))
+val bcLookup = sparkContext.broadcast(lookup)
 
 // And later on...
 
-val postcodeMapper = new PostcodeToLatLong(bcPostcodeData)
+val postcodeMapper = new PostcodeToLatLong(bcLookup)
 // This also works!
-val postcodeMapper = new PostcodeToLatLong(postcodeData)
+val postcodeMapper = new PostcodeToLatLong(lookup)
 ```
