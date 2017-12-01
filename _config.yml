@@ -16,6 +16,8 @@ author:
   name: 'Nathan Kleyn'
   url: https://twitter.com/nathankleyn
 
+plugins:
+  - jekyll-paginate
 paginate: 5
 
 sass:
