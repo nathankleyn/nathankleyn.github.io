@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Using `@transient lazy val`s To Avoid Spark Serialisation Issues
+title: Using Transient Lazy Val's To Avoid Spark Serialisation Issues
 ---
 
 Occasionally within a Spark application, you may encounter issues because some member of a (`case`) `class` / `object` is not serialisable. This manifests most often as an exception when the first task containing that item is attempted to be sent to an executor. The vast majority of the time, the fix you probably will reach for is to make the object implement `Serializable`. Sometimes however, this may not be easy or even possible (for example, when the type in question is out of your control).
