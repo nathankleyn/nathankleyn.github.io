@@ -6,16 +6,14 @@
     <header>
       <h1><a href="/">{{ site.title }}</a></h1>
       <p class="subtitle">{{ site.description }}</p>
-
-      <nav class="sidebar-nav">
-        <ol>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about/">About</a></li>
-          <li><a href="https://twitter.com/nathankleyn">Twitter</a></li>
-          <li><a href="https://github.com/nathankleyn">GitHub</a></li>
-        </ol>
-      </nav>
     </header>
+
+    <section id="about">
+      {% capture about %}{% include about.md %}{% endcapture %}
+      {{ about | markdownify }}
+    </section>
+
+    <hr />
 
     <main>
       {{ content }}

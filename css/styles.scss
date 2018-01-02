@@ -2,7 +2,7 @@
 # Front matter comment to ensure Jekyll properly reads file.
 ---
 
-@import "syntax-solarized-dark";
+@import "syntax-solarized-light";
 
 @font-face { font-family: "et-book";
              src: url("/public/fonts/et-book-roman-line-figures/et-book-roman-line-figures.eot");
@@ -81,13 +81,10 @@ pre {
   overflow: scroll;
 }
 
-code {
-  background: #002b36;
-  color: #FFFFF8;
-  padding: .25rem;
-}
-
 p code {
+  background: #fdf6e3;
+  color: #111;
+  padding: .25rem;
   font-size: .9rem;
 }
 
