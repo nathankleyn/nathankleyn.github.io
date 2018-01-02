@@ -7,7 +7,7 @@ permalink: pretty
 # Setup
 title: 'Nathan Kleyn'
 tagline: 'The musings of a programming fanatic'
-description: 'Scala and Typescript by day, Rust and Haskell by night. Find me on Twitter as <a href="https://twitter.com/nathankleyn" target="_blank">@nathankleyn</a>.'
+description: 'Scala by day, Rust, Ruby and Haskell by night. I hail from London. Find me on Twitter as <a href="https://twitter.com/nathankleyn" target="_blank">@nathankleyn</a>.'
 url: http://nathankleyn.com
 baseurl: /
 include: ['.well-known']
