@@ -5,7 +5,7 @@ title: Stopping Spark Broadcast Variables From Leaking Throughout Your Applicati
 
 When working with Spark it's tempting to use `Broadcast` variables everywhere you need them without thinking too much about it. However, if you are not careful, this can lead to strong coupling between all of your application components and the implementation of Spark itself.
 
-## How Broadcast variables work
+### How Broadcast variables work
 
 [Broadcast variables](https://spark.apache.org/docs/latest/programming-guide.html#broadcast-variables) are [intended to solve a very specific problem in Spark](https://jaceklaskowski.gitbooks.io/mastering-apache-spark/content/spark-broadcast.html): namely, preparing some static value on the driver side to be passed efficiently to all nodes that need it during some processing step. Spark takes care of implementing the distribution of this variable in the most efficient manner, eg. it can elect to use BitTorrent for larger variables (if enabled), and promises that only the nodes that need the data will be sent it at the point they need it.
 
@@ -22,7 +22,7 @@ abstract class Broadcast[T: ClassTag](val id: Long) {
 
 Effectively, Spark will store our data and reference it via an ID (a `Long`) which is all we need to send to the nodes until they actually need the data. When they need the data, they send the driver the id, and they get what they need back!
 
-## Working with Broadcast variables
+### Working with Broadcast variables
 
 In order for us to setup and get the value out of a broadcast variable, we need to do something like the following:
 
@@ -33,7 +33,7 @@ val data: Broadcast[Array[Int]] = sparkContext.broadcast(Array(1, 2, 3))
 data.value // => Array[Int] = Array(1, 2, 3))
 ```
 
-## Leaking the types
+### Leaking the types
 
 When working with Spark, it can be easy to end up with one "god job" where the implementation of all the steps of a job are inlined and heavily dependent on Spark features.
 
@@ -57,7 +57,7 @@ class PostcodeToLatLong(lookup: Broadcast[Map[String, (Double, Double)]]) {
 
 This is a nightmare for testing, as now we've gone from having a simple, pure class which can be unit tested easily to having a class that depends entirely on Spark implementation details and needs a `SparkContext` just to setup!
 
-## Abstracting away the broadcast functionality
+### Abstracting away the broadcast functionality
 
 Thankfully, we can solve this using a trait that abstracts what we actually care about: that the thing we have passed is lazy and will only be grabbed when we call `.value` on it!
 
