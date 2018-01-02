@@ -1,12 +1,28 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<html lang="en-GB">
   {% include head.html %}
 
   <body>
-    {% include sidebar.html %}
+    <header>
+      <h1><a href="/">{{ site.title }}</a></h1>
+      <p class="subtitle">{{ site.description }}</p>
 
-    <div class="content container">
+      <nav class="sidebar-nav">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="https://twitter.com/nathankleyn">Twitter</a></li>
+          <li><a href="https://github.com/nathankleyn">GitHub</a></li>
+        </ol>
+      </nav>
+    </header>
+
+    <main>
       {{ content }}
-    </div>
+    </main>
+
+    <footer>
+      <p><small>Copyright &copy; {{ site.time | date: '%Y' }}. All rights reserved.</small></p>
+    </footer>
   </body>
 </html>
