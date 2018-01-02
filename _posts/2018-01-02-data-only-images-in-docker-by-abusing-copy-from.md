@@ -5,14 +5,14 @@ title: Data-Only Images In Docker By Abusing COPY --from
 
 I recently employed a little trick to make Docker data-only images which can be joined into other Docker images as needed.
 
-Image you have a set of configuration that you want to store somewhere separately to the code. Well, you can make a Docker image of _just_ this configuration very easily:
+Imagine you have a set of configuration that you want to store somewhere separately to the code. Well, you can make a Docker image of _just_ this configuration very easily:
 
 ```dockerfile
 FROM scratch
 ADD ./ /fake-config
 ```
 
-The only thing in this image will be the directory you added, making it as barebones as possible [^1].
+After building it with `docker build -t test/fake-config .`, the only thing inside this image will be the directory you added. This is the most barebones image it is possible to make outside of `scratch` itself [^1].
 
 Now, you may wonder what the use of an image like this is — after all, it can't be executed or run because it has no binaries inside. Enter the `COPY --from` command:
 
