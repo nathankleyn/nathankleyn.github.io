@@ -7,14 +7,14 @@ permalink: pretty
 # Setup
 title: 'Nathan Kleyn'
 tagline: 'The musings of a programming fanatic'
-description: 'Scala by day, Rust, Ruby and Haskell by night. I hail from London.'
-url: http://nathankleyn.com
+description: 'Scala by day — Rust, Ruby and Haskell by night. I hail from London.'
+url: https://nathankleyn.com
 baseurl: /
 include: ['.well-known']
 
 author:
   name: 'Nathan Kleyn'
-  url: https://twitter.com/nathankleyn
+  url: https://nathankleyn.com
 
 plugins:
   - jekyll-paginate
