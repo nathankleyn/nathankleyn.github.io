@@ -124,11 +124,9 @@ body > footer {
   margin-top: 5rem;
 }
 
-@media (max-width: 760px) {
-  #about {
-    font-size: 1.1rem;
-    line-height: 1.5rem;
-  }
+#about {
+  font-size: 1rem;
+  line-height: 1.6rem;
 }
 
 /* Links: replicate underline that clears descenders */
