@@ -104,7 +104,8 @@ article header p {
 }
 
 .footnotes ol {
-  padding: 1rem 0 0 0;
+  margin: 2rem 0;
+  padding: 0;
 }
 
 .footnotes p {
@@ -112,11 +113,15 @@ article header p {
 }
 
 .pagination {
-  margin: 4rem 0;
+  margin: 5rem 0;
+}
+
+.related {
+  margin-top: 5rem;
 }
 
 body > footer {
-  margin-top: 4rem;
+  margin-top: 5rem;
 }
 
 @media (max-width: 760px) {
