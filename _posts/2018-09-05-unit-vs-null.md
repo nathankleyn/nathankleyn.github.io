@@ -82,52 +82,8 @@ We might look at this and think "oh cool, maybe it's opening a `File` for us?". 
 def doSomethingpath: Path): File = null
 ```
 
-What's wrong about `null` is that it is a magic value not represented in the type-system, and therefore it limits a lot of our ability to use the types to their full power. This is why most idiomatic Scala eschews the use of `null` over things like `Unit`, `Option[A]`, or `Either[A, B]` — these types tell the full story of what is going on, without hacks, and allow us the full power of deductive reasoning. `null` in Scala exists purely because of Java compatability, and you would be wise to avoid it at all costs!
-
-<!-- ## Extra: Top and Bottom
-
-There are actually two other special types in the type-system that you may be interested in: namely, the bottom and the top type.
-
-The bottom type (written as `Nothing` in Scala) is a type that is impossible to create. It is commonly used as a placeholder when a type isn't known to the compiler. It's also useful for saying that a function never returns — for example, a function that exits the program before returning could be written as:
-
-```scala
-def doSomething(): Nothing = sys.exit(1)
-```
-
-This makes it clear from the type that it is impossible for this function to produce a return value and it _will_ never return if you call it — all guranteed because it's impossible to make a value of type `Nothing`!
-
-The opposite of the bottom type is the top type. Also called the universal type (and written in Scala as `Any`), this is simply a way to say "this could be any possible type". For example:
-
-```scala
-def doSomething(x: Any): Any = x
-```
-
-This is a completely valid implementation of `identity` but without using a type parameter. You'll often see `Any` again used by the compiler when it is trying to ascript a type and it is seeing a lot of types that have nothing in common — this is because `Any` is the anscetor of _all_ types in Scala, even `Object`:
-
-```scala
-scala> val x: Object = new Object {}
-x: Object = $anon$1@b428830
-
-scala> x.isInstanceOf[Any]
-res1: Boolean = true
-``` -->
-
-<!-- ## Extra: Bottom and Top
-
-### The Bottom Type
-
-In type-theory, we often want a way to express something that is said to be "incalculable"
-
-### The Top Type
-
-The opposite of the bottom type is the "top type". This
-
-* Zero type (bottom) (`Nothing`)
-* Unit type
-** Similarity to Void
-* Null
-* Any () -->
+What's wrong about `null` is that it is a magic value not represented in the type-system, and therefore it limits a lot of our ability to use the types to their full power. This is why most idiomatic Scala eschews the use of `null` over things like `Unit`, `Option[A]`, or `Either[A, B]` — these types tell the full story of what is going on, without hacks, and allow us the full power of deductive reasoning. `null` in Scala exists purely because of Java compatibility, and you would be wise to avoid it at all costs!
 
 [^1]: Space is an important limitation in computers, and it is natural for us to seek out the smallest way to represent things — booleans are as small as it gets. It also fundamentally encodes the entirety of boolean logic, which enables us to write code that can make decisions based on conditional statements.
 [^2]: Assuming you aren't making empty functions, of course.
-[^3]: Techically, exceptions are also another thing that isn't represented in the type-system. Languages like Rust are taking this thinking to the mainstream and using an `Either` like type (`Result`) and `Option` completely instead of exception!
+[^3]: Technically, exceptions are also another thing that isn't represented in the type-system. Languages like Rust are taking this thinking to the mainstream and using an `Either` like type (`Result`) and `Option` completely instead of exception!
