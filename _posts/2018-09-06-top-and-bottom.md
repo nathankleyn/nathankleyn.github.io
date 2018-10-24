@@ -54,15 +54,15 @@ scala> x.isInstanceOf[Any]
 res1: Boolean = true
 ```
 
- You'll often see `Any` used by the compiler when it is trying to fill in a missing type (so called "type ascription") but couldn't find anything more specific to choose.
+ You'll often see `Any` used by the compiler when it is trying to fill in a missing type (so called "type inference") but couldn't find anything more specific to choose.
 
 ## Why Do We Need These Types?
 
 The reason both bottom and top types have to exist comes down to how static-typing works — compilers of statically typed languages are, fundamentally, trying to solve two problems:
 
-* Type-ascription: That is, filling in missing types by finding the most specific type that something should be.
+* Type inference: That is, filling in missing types by finding the most specific type that something should be.
 * Constraint solving: Proving correct or finding a set of constraints on types given a heirachy of types. This is used for things like subtyping and supertyping, and is called "variance".
 
-The bottom type is a natural way to represent an impossible scenario during the first of these tasks. The bottom type is the default type if a type cannot be ascripted — that is, when you don't annotate a type, `Nothing` will be the end result if the compiler cannot find another more specific type after searching through everything else.
+The bottom type is a natural way to represent an impossible scenario during the first of these tasks. The bottom type is the default type if a type cannot be inferred — that is, when you don't annotate a type, `Nothing` will be the end result if the compiler cannot find another more specific type after searching through everything else.
 
 The top type is the default for constraint reduction. It gives a compiler a final ultimate result if nothing can be proven when doing constraint reduction. `Any` is what you end up with when two types constrain each other so much that they have no other ancestor in common, and works because _every single type_ has `Any` at least in common.
